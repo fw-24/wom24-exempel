@@ -1,0 +1,20 @@
+@apiURL=http://localhost:8080
+
+###
+GET {{apiURL}}/notes
+
+###
+POST {{apiURL}}/notes
+Content-Type: application/json
+
+{
+    "note": "Min nya note"
+}
+
+###
+PUT {{apiURL}}/notes/2
+Content-Type: application/json
+
+{
+    "note": "gå på krog"
+}

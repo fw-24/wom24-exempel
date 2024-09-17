@@ -13,5 +13,26 @@ router.get('/', (req, res) => {
     res.send({msg: "Notes GET!", notes: tempNotes})
 })
 
+router.post('/', (req, res) => {
+    console.log(req.body)
+
+    // ersätts snart med databas
+    tempNotes.push({ 
+        id: tempNotes.length+1, 
+        note: req.body.note 
+    })
+
+    res.send({msg: "New note created!"})
+})
+
+router.put('/:id', (req, res) => {
+    console.log(req.body)
+
+    // ersätts snart med databas
+    tempNotes[req.params.id-1].note = req.body.note 
+
+    res.send({msg: `note ${req.params.id} updated`})
+})
+
 module.exports = router
 
