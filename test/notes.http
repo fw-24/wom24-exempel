@@ -8,11 +8,11 @@ POST {{apiURL}}/notes
 Content-Type: application/json
 
 {
-    "note": "Min nya note2"
+    "note": "Min nya note 3"
 }
 
 ###
-PUT {{apiURL}}/notes/2
+PUT {{apiURL}}/notes/66ebdb3b4e5bd611f3ab5ea4
 Content-Type: application/json
 
 {

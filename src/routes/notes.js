@@ -6,9 +6,10 @@ const prisma = new PrismaClient()
 
 
 // routing relativ till notes/
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     console.log("notes / GET")
-    res.send({msg: "Notes GET!", notes: []})
+    const notes = await prisma.notes.findMany()
+    res.send({msg: "Notes GET!", notes: notes})
 })
 
 router.post('/', async (req, res) => {
@@ -29,10 +30,17 @@ router.post('/', async (req, res) => {
     
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
     console.log(req.body)
 
-
+    const updateNote = await prisma.notes.update({
+        where: {
+          id: req.params.id,
+        },
+        data: {
+          note: req.body.note,
+        },
+      })
 
     res.send({msg: `note ${req.params.id} updated`})
 })
