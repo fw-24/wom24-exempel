@@ -4,16 +4,11 @@ const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 
-// ersätts snart med databas
-tempNotes = [
-    { id: 1, note: "köp bröd"}, 
-    { id: 2, note: "gå på gym"}
-]
 
 // routing relativ till notes/
 router.get('/', (req, res) => {
     console.log("notes / GET")
-    res.send({msg: "Notes GET!", notes: tempNotes})
+    res.send({msg: "Notes GET!", notes: []})
 })
 
 router.post('/', async (req, res) => {
@@ -28,6 +23,7 @@ router.post('/', async (req, res) => {
 
         res.send({msg: "New note created!"})
     } catch (error) {
+        console.log(error.message)
         res.status(500).send({msg: "ERROR"})
     }
     
@@ -36,8 +32,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', (req, res) => {
     console.log(req.body)
 
-    // ersätts snart med databas
-    tempNotes[req.params.id-1].note = req.body.note 
+
 
     res.send({msg: `note ${req.params.id} updated`})
 })

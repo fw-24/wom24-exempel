@@ -8,7 +8,7 @@ POST {{apiURL}}/notes
 Content-Type: application/json
 
 {
-    "note": "Min nya note"
+    "note": "Min nya note2"
 }
 
 ###
