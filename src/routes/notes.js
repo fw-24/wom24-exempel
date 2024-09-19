@@ -1,5 +1,8 @@
 const express = require('express')
 const router = express.Router()
+const { PrismaClient } = require('@prisma/client')
+
+const prisma = new PrismaClient()
 
 // ersätts snart med databas
 tempNotes = [
@@ -13,16 +16,21 @@ router.get('/', (req, res) => {
     res.send({msg: "Notes GET!", notes: tempNotes})
 })
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     console.log(req.body)
 
-    // ersätts snart med databas
-    tempNotes.push({ 
-        id: tempNotes.length+1, 
-        note: req.body.note 
-    })
+    try {
+        const newNote = await prisma.notes.create({
+            data: {
+                note: req.body.note
+            }
+        })
 
-    res.send({msg: "New note created!"})
+        res.send({msg: "New note created!"})
+    } catch (error) {
+        res.status(500).send({msg: "ERROR"})
+    }
+    
 })
 
 router.put('/:id', (req, res) => {
