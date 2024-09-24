@@ -1,23 +1,35 @@
 const express = require('express')
 const router = express.Router()
 const { PrismaClient } = require('@prisma/client')
+const authorize = require('../middleware/auth')
 
 const prisma = new PrismaClient()
 
 
 // routing relativ till notes/
-router.get('/', async (req, res) => {
+router.get('/', authorize, async (req, res) => {
     console.log("notes / GET")
-    const notes = await prisma.notes.findMany()
-    res.send({msg: "Notes GET!", notes: notes})
+    try {
+        const notes = await prisma.notes.findMany({
+            where: {
+                user: req.userData.sub
+            }
+        })
+        res.send({msg: "Notes GET!", notes: notes})
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({msg: "Error"})
+    }
+
 })
 
-router.post('/', async (req, res) => {
+router.post('/', authorize, async (req, res) => {
     console.log(req.body)
 
     try {
         const newNote = await prisma.notes.create({
             data: {
+                user: req.userData.sub,
                 note: req.body.note
             }
         })

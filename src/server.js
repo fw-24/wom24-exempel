@@ -11,7 +11,7 @@ console.log(process.env.HELLO_DOTENV)
 
 app.get('/', (req, res) => { 
     console.log(req.myVar)
-    res.send("<h1>Hello docker!!</h1>")
+    res.send("<h1>Hello!!</h1>")
 })
 
 // Behövs för att vi ska kunna ta emot JSON i request bodyn:

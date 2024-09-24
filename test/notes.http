@@ -1,14 +1,17 @@
 @apiURL=http://localhost:8080
+@token={{$dotenv TEMP_TOKEN}}
 
 ###
 GET {{apiURL}}/notes
+Authorization: Bearer {{token}}
 
 ###
 POST {{apiURL}}/notes
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-    "note": "Min nya note 3"
+    "note": "Min nya note med JWT"
 }
 
 ###

@@ -9,5 +9,6 @@ datasource db {
 
 model Notes {
   id String @id @default(auto()) @map("_id") @db.ObjectId
+  user String 
   note String
 }
