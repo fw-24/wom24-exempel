@@ -6,9 +6,6 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 
-// läs variabel från env:
-console.log(process.env.HELLO_DOTENV)
-
 app.get('/', (req, res) => { 
     console.log(req.myVar)
     res.send("<h1>Hello!!</h1>")

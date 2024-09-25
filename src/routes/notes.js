@@ -12,7 +12,7 @@ router.get('/', authorize, async (req, res) => {
     try {
         const notes = await prisma.notes.findMany({
             where: {
-                user: req.userData.sub
+                authorId: req.userData.sub
             }
         })
         res.send({msg: "Notes GET!", notes: notes})
@@ -29,7 +29,7 @@ router.post('/', authorize, async (req, res) => {
     try {
         const newNote = await prisma.notes.create({
             data: {
-                user: req.userData.sub,
+                authorId: req.userData.sub,
                 note: req.body.note
             }
         })
