@@ -1,0 +1,14 @@
+@apiURL=http://localhost:8080
+@token={{$dotenv TEMP_TOKEN}}
+
+
+###
+POST {{apiURL}}/users
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Fredde2",
+    "email": "fredde2@site.com",
+    "password": "Password123"
+}
