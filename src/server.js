@@ -6,7 +6,9 @@ require('dotenv').config()
 const PORT = process.env.PORT || 8080
 
 const app = express()
-app.use(cors())
+app.use(cors({
+    origin: process.env.DEV_ORIGIN || "https://people.arcada.fi"
+}))
 
 app.get('/', (req, res) => { 
     console.log(req.myVar)
