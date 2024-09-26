@@ -15,7 +15,7 @@ router.get('/', authorize, async (req, res) => {
                 authorId: req.userData.sub
             }
         })
-        res.send({msg: "Notes GET!", notes: notes})
+        res.send({msg: `Notes for user ${req.userData.name}`, notes: notes})
     } catch (error) {
         console.log(error)
         res.status(500).send({msg: "Error"})

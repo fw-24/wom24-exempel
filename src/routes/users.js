@@ -2,9 +2,11 @@ const express = require('express')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { PrismaClient } = require('@prisma/client')
+const authorize = require('../middleware/auth')
 
 const router = express.Router()
 const prisma = new PrismaClient()
+
 
 router.post('/', async (req, res) => {
     console.log(req.body)
@@ -55,6 +57,21 @@ router.post('/login', async (req, res) => {
     }, process.env.JWT_SECRET, { expiresIn: '30d' })
 
     res.send({msg: "Login OK", jwt: token})
+})
+
+// Get för att få min egen användares data (enligt jwt)
+router.get('/profile', authorize, async (req, res) => {
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                id: req.userData.sub
+            }
+        })
+        res.send({msg: `Hej ${user.name}!`})
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({msg: "Error"})
+    }
 })
 
 

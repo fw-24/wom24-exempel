@@ -1,14 +1,16 @@
 const express = require('express')
+const cors = require('cors')
 const checkName = require('./middleware/check-name')
 require('dotenv').config()
 
-const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080
 
+const app = express()
+app.use(cors())
 
 app.get('/', (req, res) => { 
     console.log(req.myVar)
-    res.send("<h1>Hello!!</h1>")
+    res.send("<h1>Hello!! cors?</h1>")
 })
 
 // Behövs för att vi ska kunna ta emot JSON i request bodyn:
