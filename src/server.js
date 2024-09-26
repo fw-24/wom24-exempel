@@ -7,7 +7,9 @@ const PORT = process.env.PORT || 8080
 
 const app = express()
 app.use(cors({
-    origin: process.env.DEV_ORIGIN || "https://people.arcada.fi"
+    origin: process.env.MODE === "development" 
+        ? "*" 
+        : "https://people.arcada.fi"
 }))
 
 app.get('/', (req, res) => { 
