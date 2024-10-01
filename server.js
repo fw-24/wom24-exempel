@@ -28,15 +28,20 @@ wss.on('connection', (ws, req) => {
     console.log(`Client count: ${clients.size}`)
 
     ws.on('message', (message) => {
-        console.log('Received message:', message);
+        const msgString = String(message)
 
-        // Send a response back to the client along with some other info
-        ws.send(JSON.stringify({
-            status: 0,
-            msg: String(message).toUpperCase(),
-            freemem: Math.round(os.freemem() / 1024 / 1024), // MB
-            totalmem: Math.round(os.totalmem() / 1024 / 1024) // MB
-        }));
+        console.log('Received message:', msgString)
+
+        clients.forEach(client => {
+            // skicka inte tillbaka till samma klient
+            if (client === ws) return;
+
+            client.send(JSON.stringify({
+                status: 0,
+                msg: String(msgString)
+            }));
+        })
+
     });
 
     ws.on('close', () => {

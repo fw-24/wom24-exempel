@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebSocket Demo</title>
+    <title>WebSocket Pastebin</title>
 
 </head>
 
 <!-- Works with ws-node in this repo -->
     
 <body>
-    <input id="in" type="text" placeholder="Write to convert to upper case">
+    <h3>WebSocket Pastebin</h3>
+    <input id="in" type="text" placeholder="Paste here">
     <p id="out">...</p>
+    <p id="conn-status">Not connected</p>
     <p id="err" style="color: red;"></p>
 
     <script>
@@ -25,6 +27,7 @@
         // Connection established 
         socket.onopen = function (event) {
             console.log('Connected to WebSocket server');
+            document.querySelector('#conn-status').innerHTML = "Connected to WebSocket server";
         };
 
         // Message listener
@@ -44,6 +47,8 @@
         // Connection closed 
         socket.onclose = function (event) {
             console.log('Connection closed');
+            document.querySelector('#conn-status').innerHTML = "Connection closed <button type='button'>Reconnect</button>";
+
         };
 
         document.querySelector('#in').addEventListener('input', (evt) => {
