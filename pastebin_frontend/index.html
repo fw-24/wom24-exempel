@@ -16,13 +16,20 @@
     <p id="out">...</p>
     <p id="conn-status">Not connected</p>
     <p id="err" style="color: red;"></p>
+    <details>
+        <summary>Settings</summary>
+        <input id="token" placeholder="Access token"><br>
+        <input id="ws-url" placeholder="Websocket server"><br>
+        <button id="btn-save" type="button">Save</button>
+    
+    </details>
 
     <script>
-        WS_TOKEN = localStorage.getItem('ws_token') || 'my-secret-token';
-        console.log(WS_TOKEN);
+        WS_TOKEN = localStorage.getItem('pastebin-token') || 'my-secret-token';
+        PASTEBIN_URL = localStorage.getItem('pastebin-url');
 
         // Create a WebSocket connection
-        const socket = new WebSocket(`ws://localhost:8080?token=${WS_TOKEN}`);
+        const socket = new WebSocket(`${PASTEBIN_URL}?token=${WS_TOKEN}`);
 
         // Connection established 
         socket.onopen = function (event) {
@@ -54,6 +61,12 @@
         document.querySelector('#in').addEventListener('input', (evt) => {
             socket.send(evt.target.value);
         });
+
+        document.querySelector('#btn-save').addEventListener('click', () => {
+            localStorage.setItem('pastebin-url', document.querySelector('#ws-url').value);
+            localStorage.setItem('pastebin-token', document.querySelector('#token').value)
+        });
+
     </script>
 
 </body>

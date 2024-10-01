@@ -28,17 +28,21 @@ wss.on('connection', (ws, req) => {
     console.log(`Client count: ${clients.size}`)
 
     ws.on('message', (message) => {
-        const msgString = String(message)
-
-        console.log('Received message:', msgString)
+    
+        console.log('Received message:', String(message))
 
         clients.forEach(client => {
             // skicka inte tillbaka till samma klient
-            if (client === ws) return;
+
+            let msgString = String(message)
+
+            if (client === ws) {
+                msgString = `Message sent to ${clients.size-1} clients.`
+            };
 
             client.send(JSON.stringify({
                 status: 0,
-                msg: String(msgString)
+                msg: msgString
             }));
         })
 
