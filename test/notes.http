@@ -11,7 +11,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "note": "Min nya note med JWT"
+    "note": "Min nya note i postgres"
 }
 
 ###
